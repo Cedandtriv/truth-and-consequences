@@ -29,9 +29,16 @@
   ::-webkit-scrollbar{width:4px}
   ::-webkit-scrollbar-track{background:transparent}
   ::-webkit-scrollbar-thumb{background:#ddd;border-radius:2px}
+  #nav{background:rgba(249,247,244,.96);backdrop-filter:blur(8px);border-bottom:0.5px solid #e8e2d8;display:flex;align-items:center;justify-content:space-between;padding:10px 20px;position:sticky;top:0;z-index:100}
+  #nav .nh{font-family:'Playfair Display',serif;font-size:13px;font-weight:500;color:#1a1814;cursor:pointer}
+  #nav .nh span{color:#c8881a;font-style:italic}
+  #nav .nl{font-size:11px;color:#8a8278;letter-spacing:.04em;padding:4px 12px;border:0.5px solid #e0dbd2;border-radius:20px;transition:all .15s}
+  #nav .nl:hover{background:#f0ece4;border-color:#c8881a;color:#8B6914}
+  .va-img{width:100%;border-radius:6px;border:0.5px solid #e0d8c8;display:block;margin-top:8px}
 </style>
 </head>
 <body>
+<div id="nav"></div>
 <div id="app"></div>
 <script>
 const GOLD='#8B6914';
@@ -57,7 +64,7 @@ const weeks=[
    scripture:'Proverbs 16:2 — All a person\'s ways seem pure to them, but motives are weighed by the LORD. · Jeremiah 17:9 — The heart is deceitful above all things and beyond cure. · Romans 12:2 — Be transformed by the renewing of your mind. · 2 Corinthians 10:5 — Take every thought captive to make it obedient to Christ.',
    check:'Think of a strong conviction you currently hold. Did you form it by following evidence — or did you arrive at the conviction first and then gather reasons to support it?',
    counter:'Heart Examination Practice: Each day, write down one belief or assumption and ask God to reveal your actual motive for holding it. Before dismissing an opposing view, articulate it in its strongest, most charitable form first.',
-   visual:'Heart Examination Visual Aid'},
+   visual:{title:'Heart Examination',file:'heart-examination.png'}},
   {id:'w3',wk:'WEEK 3',tag:'COGNITIVE DISSONANCE',name:'When Faith and Facts Clash',sub:'We resolve discomfort by revising belief, not behavior.',
    what:'Cognitive dissonance is the psychological discomfort experienced when holding contradictory beliefs, values, or attitudes — and the mental strategies used to relieve that discomfort, often at the expense of truth. The problem is not that we experience dissonance. The problem is how we resolve it.',
    how:'Rather than changing behavior to align with values, we typically change beliefs to justify behavior. The dissonance dissolves — not because the contradiction was addressed, but because the belief was quietly revised. This is why people can simultaneously claim to love justice and oppose nearly every policy designed to produce it.',
@@ -65,7 +72,7 @@ const weeks=[
    scripture:'Romans 7:15-24 — Paul\'s inner conflict: doing what he hates rather than what he knows is right. · James 3:9-10 — Double-mindedness in speech as dissonance made visible. · John 8:32 — The truth shall make you free. · 1 John 1:6-7 — If we claim fellowship while walking in darkness, we lie.',
    check:'Is there an area of your life where your stated values and actual behavior consistently diverge — and where you have developed a story that makes that gap feel acceptable?',
    counter:'Name the gap explicitly in writing: "I believe X, but I consistently do Y." Do not immediately resolve the tension. The biblical pathway: face truth honestly → examine heart with scripture → confess and repent → align actions with truth → peace, growth, maturity.',
-   visual:'Dissonance Resolution Flowchart'},
+   visual:{title:'Dissonance Resolution Flowchart',file:'dissonance-resolution.jpg'}},
   {id:'w4',wk:'WEEK 4',tag:'IDENTITY-PROTECTIVE COGNITION',name:'Group Loyalty vs. Kingdom Identity',sub:'We protect our tribe\'s version of truth.',
    what:'Identity-protective cognition describes how individuals use their cognitive abilities to reason around information that threatens their identity or group membership. Research shows that higher cognitive ability can actually increase resistance to threatening information. The smarter you are, the better you get at rationalizing.',
    how:'This mechanism transforms credibility from an epistemic question — "Is this true?" — into a social question — "Who said it and what group do they belong to?" Information from our tribe arrives with a presumption of truth. Information from the other side arrives with a presumption of manipulation. Both believers and unbelievers in every group are equally susceptible.',
@@ -109,6 +116,7 @@ function render(){
   else if(S.view==='lib')a.innerHTML=Lib();
   else if(S.view==='det')a.innerHTML=Det(S.sel);
   else if(S.view==='guide')a.innerHTML=Guide();
+  Nav();
   attachEvents();
   if(S.view==='guide'){const cw=document.getElementById('cw');if(cw)cw.scrollTop=cw.scrollHeight;}
 }
@@ -186,11 +194,28 @@ return`<div style="margin-bottom:24px">
 ${regHtml}${shortsHtml}
 </div>`;}
 
+function Nav(){
+const n=document.getElementById('nav');
+if(!n)return;
+const onHome=S.view==='home';
+n.innerHTML=`
+<button class="nh" id="n-home">TRUTH <span>&amp;</span> CONSEQUENCES</button>
+${!onHome?`<button class="nl" id="n-home2">Home</button>`:'<div></div>'}
+`;}
+
+function buildVisual(visual){
+if(!visual)return'';
+return`<div style="margin-bottom:24px">
+<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:10px">VISUAL AID — ${visual.title.toUpperCase()}</div>
+<img src="/images/${visual.file}" alt="${visual.title}" class="va-img"
+  onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+<div style="display:none;background:#faf7f0;border:0.5px solid #e0d8c8;border-radius:6px;padding:12px 15px;font-size:11px;color:#8a8278">
+  Image not yet uploaded — add <code style="font-size:10px;background:#f0ece4;padding:1px 5px;border-radius:3px">/images/${visual.file}</code> to your GitHub repo.
+</div>
+</div>`;}
+
 function Det(w){
 if(!w)return Lib();
-const vs=w.visual?`<div style="background:#faf7f0;border:0.5px solid #e0d8c8;border-radius:6px;padding:11px 15px;margin-bottom:24px">
-<div style="font-size:9px;letter-spacing:.2em;color:${GOLD};font-weight:500;margin-bottom:4px">VISUAL AID</div>
-<div style="font-size:11px;color:#8a8278">${w.visual} — available in your curriculum materials</div></div>`:'';
 return`<div class="ani" style="padding:24px;min-height:100vh;background:#f9f7f4">
 <button id="b-bl" style="font-size:12px;color:#8a8278;margin-bottom:20px;display:block;letter-spacing:.04em">← All Weeks</button>
 <div style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #e8e2d8">
@@ -205,7 +230,7 @@ return`<div class="ani" style="padding:24px;min-height:100vh;background:#f9f7f4"
 ${sec('WHAT IT IS',w.what)}
 ${sec('HOW IT OPERATES',w.how)}
 ${sec('IN SCRIPTURE & PRACTICE',w.example,GOLD2)}
-${buildVideos(w.videos)}${vs}
+${buildVideos(w.videos)}${buildVisual(w.visual)}
 ${sec('SCRIPTURE FOUNDATION',w.scripture,'#4a6b9a')}
 ${sec('SELF-EXAMINATION',w.check,'#9a4a4a')}
 ${sec('COUNTER-STRATEGY',w.counter)}
@@ -243,6 +268,8 @@ set({view:'guide',ctx:w,msgs:[{role:'assistant',content:intro}],val:''});}
 
 function attachEvents(){
 const on=(id,fn)=>{const el=document.getElementById(id);if(el)el.addEventListener('click',fn);};
+on('n-home',()=>set({view:'home',ctx:null}));
+on('n-home2',()=>set({view:'home',ctx:null}));
 on('b-lib',()=>set({view:'lib'}));
 on('b-g0',()=>openGuide(null));
 on('b-bh',()=>set({view:'home'}));
