@@ -19,6 +19,10 @@
   .serif{font-family:'Playfair Display',serif}
   .wc:hover{background:#f0ece4!important;border-color:#c8881a!important}
   .hc:hover{background:#f0ece4!important;border-color:#c8881a!important}
+  .yt-16x9{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px}
+  .yt-16x9 iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+  .yt-9x16{position:relative;padding-bottom:177.78%;height:0;overflow:hidden;border-radius:6px}
+  .yt-9x16 iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
   @keyframes tp{0%,100%{opacity:.2}50%{opacity:1}}
   @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
   .ani{animation:fi .25s ease forwards}
@@ -32,7 +36,6 @@
 <script>
 const GOLD='#8B6914';
 const GOLD2='#c8881a';
-const SURF='#f4f0e8';
 
 const weeks=[
   {id:'w1',wk:'WEEK 1',tag:'FOUNDATION',name:'The Value of Truth',sub:'Why truth is not optional for Kingdom citizens.',
@@ -42,7 +45,11 @@ const weeks=[
    scripture:'Proverbs 23:23 — Buy the truth, and sell it not; also wisdom, and instruction, and understanding. · Proverbs 22:17-21 — That I might make thee know the certainty of the words of truth. · 2 Thessalonians 2:9-12 — Strong delusion comes upon those who did not receive a love of the truth.',
    check:'When was the last time you changed your mind about something significant because of evidence — not because someone convinced you emotionally?',
    counter:'Commit to the practice of source verification before sharing information. Not as skepticism — as stewardship. The truth you carry as a Kingdom witness must be accurate. "Buy the truth, and sell it not."',
-   videos:['DEI: What the Data Actually Shows','Immigration: Facts vs. Narrative','Education: The History They Didn\'t Teach']},
+   videos:[
+     {title:'DEI: What the Data Actually Shows',id:'Bc-kF-U_xLI',shorts:false},
+     {title:'Deportations: Facts vs. Narrative',id:'_GdQT9AezKE',shorts:true},
+     {title:'Education: The History They Didn\'t Teach',id:'6nY-eDNIXuo',shorts:true}
+   ]},
   {id:'w2',wk:'WEEK 2',tag:'MOTIVATED REASONING',name:'Protecting Beliefs vs. Seeking Truth',sub:'We reason toward conclusions we have already reached.',
    what:'Motivated reasoning is the tendency to reach conclusions driven by what we want to be true — and then construct logical-sounding justifications afterward. The conclusion precedes the reasoning. We genuinely believe we are being rational. That is what makes it so dangerous.',
    how:'This mechanism drives resistance to DEI data despite clear business benefits, dismissal of immigration crime statistics despite government verification, and rejection of protest documentation despite Amnesty International confirmation. The evidence does not change. The motivation to protect the belief filters the interpretation.',
@@ -107,8 +114,8 @@ function render(){
 }
 
 function Home(){return`<div class="ani" style="padding:56px 24px 48px;text-align:center">
-<div style="font-size:9px;letter-spacing:.3em;color:${GOLD};font-weight:500;margin-bottom:14px">CEDRIC SPENCER · THE POTTER'S HOUSE OF FORT WORTH</div>
-<div class="serif" style="font-size:30px;font-weight:500;letter-spacing:.04em;line-height:1.15;color:#1a1814">TRUTH <span style="color:${GOLD2}; font-style:italic">&amp;</span> CONSEQUENCES</div>
+<div style="font-size:9px;letter-spacing:.3em;color:${GOLD};font-weight:500;margin-bottom:14px">CEDRIC SPENCER</div>
+<div class="serif" style="font-size:30px;font-weight:500;letter-spacing:.04em;line-height:1.15;color:#1a1814">TRUTH <span style="color:${GOLD2};font-style:italic">&amp;</span> CONSEQUENCES</div>
 <div style="height:1px;background:linear-gradient(90deg,transparent,${GOLD2},transparent);margin:20px auto;max-width:260px"></div>
 <p style="font-size:12px;color:#6b6258;line-height:1.85;max-width:380px;margin:0 auto;font-style:italic">"Buy the truth, and sell it not; also wisdom, and instruction, and understanding."</p>
 <p style="font-size:10px;color:#b0a898;margin-top:6px;letter-spacing:.08em">PROVERBS 23:23</p>
@@ -125,7 +132,7 @@ function Home(){return`<div class="ani" style="padding:56px 24px 48px;text-align
 <div style="font-size:11px;color:#8a8278;line-height:1.6">Bring a question, a challenge, or a real situation. Trained on the T&amp;C curriculum and the research behind it.</div>
 </button>
 </div>
-<p style="margin-top:48px;font-size:9px;color:#c8c0b4;letter-spacing:.18em">A SIX-WEEK LIFE GROUP · EVERY 2ND WEDNESDAY · 7PM</p>
+<p style="margin-top:48px;font-size:9px;color:#c8c0b4;letter-spacing:.18em">A SIX-WEEK LIFE GROUP</p>
 </div>`;}
 
 function Lib(){
@@ -153,17 +160,37 @@ return`<div style="margin-bottom:24px">
 <div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:9px">${lbl}</div>
 <div style="font-size:13px;color:#4a4540;line-height:1.88;${bdr}">${txt}</div></div>`;}
 
+function buildVideos(videos){
+if(!videos||!videos.length)return'';
+const base='https://www.youtube-nocookie.com/embed/';
+const regular=videos.filter(v=>!v.shorts);
+const shorts=videos.filter(v=>v.shorts);
+
+const regHtml=regular.map(v=>`
+<div style="margin-bottom:14px">
+  <div class="yt-16x9"><iframe src="${base}${v.id}?rel=0&modestbranding=1" title="${v.title}" allowfullscreen loading="lazy"></iframe></div>
+  <div style="font-size:11px;color:#8a8278;margin-top:6px">${v.title}</div>
+</div>`).join('');
+
+let shortsHtml='';
+if(shorts.length){
+shortsHtml=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+${shorts.map(v=>`<div>
+  <div class="yt-9x16"><iframe src="${base}${v.id}?rel=0&modestbranding=1" title="${v.title}" allowfullscreen loading="lazy"></iframe></div>
+  <div style="font-size:10px;color:#8a8278;margin-top:6px;line-height:1.4">${v.title}</div>
+</div>`).join('')}
+</div>`;}
+
+return`<div style="margin-bottom:24px">
+<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:12px">IN PRACTICE — VIDEO CASE STUDIES</div>
+${regHtml}${shortsHtml}
+</div>`;}
+
 function Det(w){
 if(!w)return Lib();
 const vs=w.visual?`<div style="background:#faf7f0;border:0.5px solid #e0d8c8;border-radius:6px;padding:11px 15px;margin-bottom:24px">
 <div style="font-size:9px;letter-spacing:.2em;color:${GOLD};font-weight:500;margin-bottom:4px">VISUAL AID</div>
 <div style="font-size:11px;color:#8a8278">${w.visual} — available in your curriculum materials</div></div>`:'';
-const vids=w.videos?`<div style="margin-bottom:24px">
-<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:10px">IN PRACTICE — VIDEO CASE STUDIES</div>
-${w.videos.map(v=>`<div style="background:#faf7f0;border:0.5px solid #e0d8c8;border-radius:6px;padding:10px 13px;margin-bottom:7px;display:flex;align-items:center;gap:11px">
-<div style="width:28px;height:28px;border-radius:50%;background:${GOLD2};display:flex;align-items:center;justify-content:center;flex-shrink:0">
-<div style="width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:10px solid #fff;margin-left:2px"></div></div>
-<span style="font-size:12px;color:#5a5248">${v}</span></div>`).join('')}</div>`:'';
 return`<div class="ani" style="padding:24px;min-height:100vh;background:#f9f7f4">
 <button id="b-bl" style="font-size:12px;color:#8a8278;margin-bottom:20px;display:block;letter-spacing:.04em">← All Weeks</button>
 <div style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #e8e2d8">
@@ -178,7 +205,7 @@ return`<div class="ani" style="padding:24px;min-height:100vh;background:#f9f7f4"
 ${sec('WHAT IT IS',w.what)}
 ${sec('HOW IT OPERATES',w.how)}
 ${sec('IN SCRIPTURE & PRACTICE',w.example,GOLD2)}
-${vids}${vs}
+${buildVideos(w.videos)}${vs}
 ${sec('SCRIPTURE FOUNDATION',w.scripture,'#4a6b9a')}
 ${sec('SELF-EXAMINATION',w.check,'#9a4a4a')}
 ${sec('COUNTER-STRATEGY',w.counter)}
