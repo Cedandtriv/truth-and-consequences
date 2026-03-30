@@ -1,0 +1,25 @@
+{
+  "headers": [
+    {
+      "source": "/audio/(.*).mp3",
+      "headers": [
+        { "key": "Content-Type", "value": "audio/mpeg" },
+        { "key": "Accept-Ranges", "value": "bytes" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/downloads/(.*).pdf",
+      "headers": [
+        { "key": "Content-Type", "value": "application/pdf" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    }
+  ]
+}
