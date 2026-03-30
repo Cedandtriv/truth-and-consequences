@@ -222,7 +222,7 @@ ${!onHome?`<button class="nl" id="n-home2">Home</button>`:'<div></div>'}
 
 function buildAudio(file,label){
 if(!file)return'';
-const mime=file.endsWith('.m4a')?'audio/mp4':'audio/mpeg';
+const mime='audio/mpeg';
 const heading=label||'NOTEBOOKLM PODCAST — LISTEN TO THIS SESSION';
 return`<div style="margin-bottom:24px">
 <div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:10px">${heading}</div>
@@ -238,7 +238,7 @@ return`<div style="margin-bottom:24px">
 
 function buildPrologue(prologue){
 if(!prologue)return'';
-const mime=prologue.audio.endsWith('.m4a')?'audio/mp4':'audio/mpeg';
+const mime='audio/mpeg';
 return`<div style="margin-bottom:28px;padding:18px 18px 20px;background:#fff;border:0.5px solid #e0dbd2;border-radius:8px;border-left:3px solid ${GOLD2}">
 <div style="font-size:9px;letter-spacing:.22em;color:${GOLD};font-weight:500;margin-bottom:8px">BEFORE WE BEGIN</div>
 <div style="font-family:'Playfair Display',serif;font-size:15px;color:#1a1814;margin-bottom:8px">${prologue.title}</div>
