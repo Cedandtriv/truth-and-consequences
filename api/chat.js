@@ -1,5 +1,12 @@
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://truthandconsequences.org');
+  const allowed = [
+    'https://truthandconsequences.org',
+    'https://www.truthandconsequences.org',
+    'https://truth-and-consequences.vercel.app'
+  ];
+  const origin = req.headers.origin || '';
+  const isAllowed = allowed.includes(origin) || origin.endsWith('.vercel.app');
+  res.setHeader('Access-Control-Allow-Origin', isAllowed ? origin : allowed[0]);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -26,4 +33,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Request failed', details: error.message });
   }
 }
-
