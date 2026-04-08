@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Truth & Consequences — A six-week curriculum equipping Kingdom citizens to recognize and overcome psychological mechanisms of fact-denial. Developed by Cedric Spencer."/>
+<meta property="og:title" content="Truth & Consequences"/>
+<meta property="og:description" content="A six-week Life Group curriculum on truth, psychological mechanisms, and biblical reflection."/>
+<title>Truth & Consequences</title>
+<script>
+(function(){
+  var s=localStorage.getItem('tc-theme');
+  var d=s?s==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.classList.add(d?'dark':'light');
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --c-bg:#f9f7f4;--c-card:#ffffff;--c-surface:#faf7f0;--c-hover:#f0ece4;
+  --c-border:#e0dbd2;--c-border-light:#e8e2d8;--c-border-soft:#e0d8c8;--c-border-in:#dddddd;
+  --c-text:#1a1814;--c-text2:#4a4540;--c-text3:#8a8278;--c-text4:#6b6258;
+  --c-text5:#7a7268;--c-text6:#b0a898;--c-text7:#c8c0b4;--c-text8:#a0998f;--c-text9:#d0c8bc;
+  --c-msg-bg:#f0ece4;--c-msg-text:#2a2520;--c-nav-bg:rgba(249,247,244,.96);
+  --c-tag:#f5f0e8;--c-in-bg:#f9f7f4;--c-scroll:#dddddd;--c-ph:#aaaaaa;
+}
+.dark{
+  --c-bg:#0d0b09;--c-card:#1a160d;--c-surface:#201a10;--c-hover:#2a2218;
+  --c-border:#3a3020;--c-border-light:#2e2618;--c-border-soft:#342c1a;--c-border-in:#3a3020;
+  --c-text:#f0e8d8;--c-text2:#c8b898;--c-text3:#8a7a68;--c-text4:#a09080;
+  --c-text5:#908070;--c-text6:#706050;--c-text7:#504030;--c-text8:#9a8878;--c-text9:#4a3e2e;
+  --c-msg-bg:#2a2218;--c-msg-text:#e0d8c8;--c-nav-bg:rgba(13,11,9,.96);
+  --c-tag:#221c12;--c-in-bg:#0d0b09;--c-scroll:#3a3020;--c-ph:#6a5a4a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--c-bg);color:var(--c-text);font-family:'Inter',sans-serif;min-height:100vh;transition:background .2s,color .2s}
+#app{max-width:640px;margin:0 auto;min-height:100vh}
+button{cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;font-size:inherit;color:inherit}
+input{font-family:'Inter',sans-serif}
+input::placeholder{color:var(--c-ph)}
+.serif{font-family:'Playfair Display',serif}
+.wc:hover{background:var(--c-hover)!important;border-color:#c8881a!important}
+.hc:hover{background:var(--c-hover)!important;border-color:#c8881a!important}
+.yt-16x9{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px}
+.yt-16x9 iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+.yt-9x16{position:relative;padding-bottom:177.78%;height:0;overflow:hidden;border-radius:6px}
+.yt-9x16 iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+@keyframes tp{0%,100%{opacity:.2}50%{opacity:1}}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.ani{animation:fi .25s ease forwards}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--c-scroll);border-radius:2px}
+#nav{background:var(--c-nav-bg);backdrop-filter:blur(8px);border-bottom:0.5px solid var(--c-border-light);display:flex;align-items:center;justify-content:space-between;padding:10px 20px;position:sticky;top:0;z-index:200}
+#nav .nh{font-family:'Playfair Display',serif;font-size:13px;font-weight:500;color:var(--c-text);cursor:pointer;flex-shrink:0}
+#nav .nh span{color:#c8881a;font-style:italic}
+#nav .nright{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.nl{font-size:11px;color:var(--c-text3);letter-spacing:.04em;padding:4px 10px;border:0.5px solid var(--c-border);border-radius:20px;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:3px;background:none;cursor:pointer}
+.nl:hover{background:var(--c-hover);border-color:#c8881a;color:#8B6914}
+.nl.active{border-color:#c8881a;color:#8B6914}
+.nav-rd{position:relative;display:inline-flex}
+.nav-drop{position:absolute;top:calc(100% + 4px);right:0;background:var(--c-card);border:0.5px solid var(--c-border);border-radius:8px;padding:4px;min-width:140px;z-index:300;opacity:0;pointer-events:none;transform:translateY(-4px);transition:opacity .15s,transform .15s;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.nav-rd.open .nav-drop{opacity:1;pointer-events:all;transform:translateY(0)}
+.nav-di{display:block;font-size:11px;color:var(--c-text3);padding:7px 11px;border-radius:5px;text-decoration:none;transition:all .12s;letter-spacing:.03em;cursor:pointer;background:none;border:none;width:100%;text-align:left;font-family:'Inter',sans-serif}
+.nav-di:hover{background:var(--c-hover);color:var(--c-text)}
+.n-theme{padding:4px 8px;line-height:1}
+.va-img{width:100%;border-radius:6px;border:0.5px solid var(--c-border-soft);display:block;margin-top:8px}
+</style>
+</head>
+<body>
+<div id="nav"></div>
+<div id="app"></div>
+<script>
+const GOLD='#8B6914';
+const GOLD2='#c8881a';
+const MOON='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+const SUN='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+
+function isDark(){return document.documentElement.classList.contains('dark');}
+function toggleTheme(){
+  const d=document.documentElement;
+  const nowDark=d.classList.toggle('dark');
+  d.classList.toggle('light',!nowDark);
+  localStorage.setItem('tc-theme',nowDark?'dark':'light');
+  // Update button icon in place — do NOT call Nav() which would destroy the listener
+  const btn=document.getElementById('n-theme');
+  if(btn){
+    btn.innerHTML=nowDark?SUN:MOON;
+    btn.title=nowDark?'Switch to light mode':'Switch to dark mode';
+  }
+}
+
+const weeks=[
+  {id:'w1',wk:'WEEK 1',tag:'FOUNDATION',name:'The Value of Truth',sub:'Why truth is not optional for Kingdom citizens.',
+   what:'We live in a world profoundly averse to truth. The Hebrew word for truth — emet, meaning firmness or stability — appears 127 times in Scripture. The Greek aletheia — "essence revealed by appearance" — appears 110 times. God does not treat truth as a preference. He treats it as a foundation.',
+   how:'Research across four major social issues — DEI, immigration, racial justice protests, and education funding — reveals a consistent pattern: high-quality factual evidence systematically contradicted by persistent myths. The pattern is not random. It is systematic, intentional, and harmful. Understanding it is the first act of Kingdom faithfulness.',
+   example:'"Motivated reasoning, cognitive dissonance, identity-protective cognition, confirmation bias, and selective information processing are all psychological mechanisms impairing global humanity\'s ability to process truth and facts in meaningful and constructive ways." — Cedric Spencer, Cultural Landscape &amp; Kingdom Strategy',
+   scripture:'Proverbs 23:23 — Buy the truth, and sell it not; also wisdom, and instruction, and understanding. · Proverbs 22:17-21 — That I might make thee know the certainty of the words of truth. · 2 Thessalonians 2:9-12 — Strong delusion comes upon those who did not receive a love of the truth.',
+   check:'When was the last time you changed your mind about something significant because of evidence — not because someone convinced you emotionally?',
+   counter:'Commit to the practice of source verification before sharing information. Not as skepticism — as stewardship. The truth you carry as a Kingdom witness must be accurate. "Buy the truth, and sell it not."',
+   videos:[
+     {title:'DEI: What the Data Actually Shows',id:'Bc-kF-U_xLI',shorts:false},
+     {title:'Deportations: Facts vs. Narrative',id:'_GdQT9AezKE',shorts:true},
+     {title:'Education: The History They Didn\'t Teach',id:'6nY-eDNIXuo',shorts:true}
+   ],
+   pdf:'week-1-foundation.pdf',
+   audio:'week-1-foundation.mp3',
+   prologue:{
+     title:'Before We Begin — Defining Truth',
+     desc:'The secular and biblical definitions of truth, the earliest recorded philosophies of truth from Plato through Aquinas, and how these foundations contrast with the fragmented subjective social constructs that pass for truth in contemporary culture. This baseline frames everything that follows.',
+     pdf:'truth-definition.pdf',
+     audio:'truth-definition.mp3'}},
+  {id:'w2',wk:'WEEK 2',tag:'MOTIVATED REASONING',name:'Protecting Beliefs vs. Seeking Truth',sub:'We reason toward conclusions we have already reached.',
+   what:'Motivated reasoning is the tendency to reach conclusions driven by what we want to be true — and then construct logical-sounding justifications afterward. The conclusion precedes the reasoning. We genuinely believe we are being rational. That is what makes it so dangerous.',
+   how:'This mechanism drives resistance to DEI data despite clear business benefits, dismissal of immigration crime statistics despite government verification, and rejection of protest documentation despite Amnesty International confirmation. The evidence does not change. The motivation to protect the belief filters the interpretation.',
+   example:'Proverbs 16:2 says "All a person\'s ways seem pure to them, but motives are weighed by the LORD." This is psychologically precise. The religious leaders in John 5:40 rejected Jesus not for lack of evidence but to protect their worldview: "Yet you refuse to come to me to have life." Their resistance was motivational, not intellectual.',
+   scripture:'Proverbs 16:2 — All a person\'s ways seem pure to them, but motives are weighed by the LORD. · Jeremiah 17:9 — The heart is deceitful above all things and beyond cure. · Romans 12:2 — Be transformed by the renewing of your mind. · 2 Corinthians 10:5 — Take every thought captive to make it obedient to Christ.',
+   check:'Think of a strong conviction you currently hold. Did you form it by following evidence — or did you arrive at the conviction first and then gather reasons to support it?',
+   counter:'Heart Examination Practice: Each day, write down one belief or assumption and ask God to reveal your actual motive for holding it. Before dismissing an opposing view, articulate it in its strongest, most charitable form first.',
+   visual:{title:'Heart Examination',file:'heart-examination.png'},
+   pdf:'week-2-motivated-reasoning.pdf',
+   audio:'week-2-motivated-reasoning.mp3'},
+  {id:'w3',wk:'WEEK 3',tag:'COGNITIVE DISSONANCE',name:'When Faith and Facts Clash',sub:'We resolve discomfort by revising belief, not behavior.',
+   what:'Cognitive dissonance is the psychological discomfort experienced when holding contradictory beliefs, values, or attitudes — and the mental strategies used to relieve that discomfort, often at the expense of truth. The problem is not that we experience dissonance. The problem is how we resolve it.',
+   how:'Rather than changing behavior to align with values, we typically change beliefs to justify behavior. The dissonance dissolves — not because the contradiction was addressed, but because the belief was quietly revised. This is why people can simultaneously claim to love justice and oppose nearly every policy designed to produce it.',
+   example:'"For I do not do what I want, but I do the very thing I hate." — Romans 7:15. Paul is not describing weakness — he is naming cognitive dissonance with prophetic precision. James 3:9-10 identifies the same pattern in community: "With the tongue we praise our Lord and Father, and with it we curse human beings."',
+   scripture:'Romans 7:15-24 — Paul\'s inner conflict: doing what he hates rather than what he knows is right. · James 3:9-10 — Double-mindedness in speech as dissonance made visible. · John 8:32 — The truth shall make you free. · 1 John 1:6-7 — If we claim fellowship while walking in darkness, we lie.',
+   check:'Is there an area of your life where your stated values and actual behavior consistently diverge — and where you have developed a story that makes that gap feel acceptable?',
+   counter:'Name the gap explicitly in writing: "I believe X, but I consistently do Y." Do not immediately resolve the tension. The biblical pathway: face truth honestly → examine heart with scripture → confess and repent → align actions with truth → peace, growth, maturity.',
+   visual:{title:'Dissonance Resolution Flowchart',file:'dissonance-resolution.jpg'},
+   pdf:'week-3-cognitive-dissonance.pdf',
+   audio:'week-3-cognitive-dissonance.mp3'},
+  {id:'w4',wk:'WEEK 4',tag:'IDENTITY-PROTECTIVE COGNITION',name:'Group Loyalty vs. Kingdom Identity',sub:'We protect our tribe\'s version of truth.',
+   what:'Identity-protective cognition describes how individuals use their cognitive abilities to reason around information that threatens their identity or group membership. Research shows that higher cognitive ability can actually increase resistance to threatening information. The smarter you are, the better you get at rationalizing.',
+   how:'This mechanism transforms credibility from an epistemic question — "Is this true?" — into a social question — "Who said it and what group do they belong to?" Information from our tribe arrives with a presumption of truth. Information from the other side arrives with a presumption of manipulation. Both believers and unbelievers in every group are equally susceptible.',
+   example:'Galatians 2:11-14: Peter withdrew from Gentile believers not because the theology had changed but because he feared criticism from the circumcision group. Paul confronted him to his face. John 9:20-23: The parents of the man born blind refused to acknowledge Jesus\'s miracle out of fear of being expelled from the synagogue.',
+   scripture:'John 9:20-23 — Fear of group exclusion overrides acknowledging clear evidence. · Galatians 2:11-14 — Peter\'s group identity pressure confronted by Paul. · 2 Corinthians 5:17 — If anyone is in Christ, the new creation has come. · 1 Peter 2:9 — You are a chosen people, called to declare, not conform.',
+   check:'Map your trusted relationships. How diverse are they across political, cultural, and theological lines? When you encounter information that challenges your group\'s accepted narrative, is your first instinct to evaluate the evidence — or to identify who published it?',
+   counter:'Practice source blindness: read the argument first, evaluate on its merits, then check the source. Conduct a Circle of Trust audit — examine the diversity of your trusted relationships. Ground your identity in Christ above all tribal affiliation.',
+   pdf:'week-4-identity-protective.pdf',
+   audio:'week-4-identity-protective.mp3'},
+  {id:'w5',wk:'WEEK 5',tag:'CONFIRMATION BIAS',name:'Seeing What We Want to See',sub:'We seek what confirms us and ignore the rest.',
+   what:'Confirmation bias is the tendency to search for, interpret, favor, and recall information that confirms prior beliefs — regardless of whether that information is accurate. We do not passively receive information. We actively filter it. Evidence that confirms existing beliefs feels vivid and trustworthy. Evidence that challenges us gets dismissed or simply not retained.',
+   how:'Two people can read the same news feed and come away more convinced than ever of opposing positions — each noticed the stories that confirmed what they already believed. Social media algorithms accelerate this dramatically, curating a reality that feels comprehensive but is profoundly selective.',
+   example:'Mark 3:20-35: Different groups encountered the same Jesus, the same miracles, and interpreted them in radically different ways based on prior beliefs. The evidence was identical. The interpretation was determined by what each group needed to be true. Proverbs 18:17: "The one who states his case first seems right, until the other comes and examines him."',
+   scripture:'Proverbs 18:17 — The first case always sounds right until examined. · James 2:1,4 — Favoritism mirrors confirmation bias in community. · Mark 3:20-35 — Same evidence, radically different interpretations. · James 1:5 — Ask God for wisdom. · 1 John 4:1 — Test the spirits.',
+   check:'Track your news and social media consumption for three days. Which perspectives are you avoiding and why? Is your information diet primarily a mirror or a window?',
+   counter:'Practice "Consider the Opposite" — on a contested issue, argue the opposing view as strongly as you can before restating your own. Seek communal accountability. The church was designed to counter individual bias with collective discernment. Hebrews 10:24-25 is not just fellowship — it is an accountability structure against epistemic isolation.',
+   pdf:'week-5-confirmation-bias.pdf',
+   audio:'week-5-confirmation-bias.mp3'},
+  {id:'w6',wk:'WEEK 6',tag:'KINGDOM STRATEGIES',name:'Overcoming Bias — Truth in Practice',sub:'Equipping Kingdom citizens to live what they have learned.',
+   what:'Understanding the five mechanisms is not the goal. Transformation is. The culmination of this curriculum is not a certificate — it is a commission: to seek, speak, and live truth as Kingdom witnesses in a world designed to distort it.',
+   how:'"We demolish arguments and every pretension that sets itself up against the knowledge of God, and we take captive every thought to make it obedient to Christ." (2 Corinthians 10:5) That is a battle posture, not a devotional sentiment. The renewing of the mind is active, ongoing, and intentional.',
+   example:'The Debiasing Toolkit integrates all five mechanisms: heart examination for motivated reasoning, the resolution flowchart for dissonance, identity anchoring in Christ for identity-protective cognition, source testing and communal accountability for confirmation bias, scripture as the ultimate authority over all selective processing.',
+   scripture:'2 Timothy 3:16 — All Scripture is God-breathed and useful for teaching, rebuking, correcting, and training in righteousness. · Psalm 119:105 — Your word is a lamp for my feet, a light on my path. · 1 John 4:18 — Perfect love drives out fear. · Galatians 3:28 — There is neither Jew nor Gentile — all one in Christ.',
+   check:'Write a letter to your future self: How do you intend to remain a truth-seeker and Kingdom witness in a world of fact-denial? What will you do differently this week?',
+   counter:'Apply one debiasing technique in a real conversation or decision this week and record your experience. Then equip someone else. Truth that stays in the classroom is not yet Kingdom truth — it is knowledge waiting to become wisdom.',
+   pdf:'week-6-kingdom-strategies.pdf',
+   audio:'week-6-kingdom-strategies.mp3'}
+];
+
+const SYS=`You are the Truth & Consequences Guide — an AI thinking partner built on the six-week curriculum developed by Cedric Spencer at The Potter\'s House of Fort Worth.
+
+The curriculum covers six weeks: (1) The Value of Truth — Biblical and Cultural Foundations, (2) Motivated Reasoning, (3) Cognitive Dissonance, (4) Identity-Protective Cognition, (5) Confirmation Bias, (6) Kingdom Strategies for overcoming bias.
+
+Key research from the curriculum: DEI policies produce 33-36% higher profitability (McKinsey multi-year studies of 1,000+ companies); 94% of BLM protests were peaceful (ACLED analysis of 7,750+ demonstrations); undocumented immigrants are 60% less likely to be incarcerated than US citizens (PNAS/Texas DPS data); 86% of fentanyl traffickers are US citizens (US Sentencing Commission); 80% of major US metros remain highly segregated; $23B annual funding gap between majority-white and majority-minority schools (GAO).
+
+Your voice: Scholarly but accessible. Direct without being harsh. Non-partisan — you apply equal analytical rigor across all political and cultural examples. You ask probing questions more than delivering answers. You integrate biblical wisdom naturally, never preachy. You take truth seriously and expect your conversation partners to do the same.
+
+Format: 150-250 words unless depth is requested. Conversational paragraphs, not bullet lists. End most responses with one focused question that invites genuine reflection. Never be sycophantic. Challenge shallow or evasive answers with respectful precision.`;
+
+let S={view:'home',sel:null,msgs:[],loading:false,ctx:null,val:''};
+function set(u){S={...S,...u};render()}
+
+function render(){
+  const a=document.getElementById('app');
+  if(S.view==='home')a.innerHTML=Home();
+  else if(S.view==='lib')a.innerHTML=Lib();
+  else if(S.view==='det')a.innerHTML=Det(S.sel);
+  else if(S.view==='guide')a.innerHTML=Guide();
+  Nav();
+  attachEvents();
+  if(S.view==='guide'){const cw=document.getElementById('cw');if(cw)cw.scrollTop=cw.scrollHeight;}
+}
+
+function Nav(){
+  const n=document.getElementById('nav');
+  if(!n)return;
+  const dark=isDark();
+  n.innerHTML=`
+<button class="nh" id="n-home">TRUTH <span>&amp;</span> CONSEQUENCES</button>
+<div class="nright">
+  <button class="nl" id="n-lib">Curriculum</button>
+  <button class="nl" id="n-guide">Ask the Guide</button>
+  <div class="nav-rd" id="nav-rd">
+    <button class="nl" id="n-res" style="gap:4px">Research <span style="font-size:9px;opacity:.7">▾</span></button>
+    <div class="nav-drop" id="nav-drop">
+      <button class="nav-di" onclick="window.location.href='/research/?s=overview'">Overview</button>
+      <button class="nav-di" onclick="window.location.href='/research/?s=mechanisms'">Mechanisms</button>
+      <button class="nav-di" onclick="window.location.href='/research/?s=about'">About</button>
+    </div>
+  </div>
+  <button class="nl n-theme" id="n-theme" aria-label="Toggle theme" title="${dark?'Switch to light mode':'Switch to dark mode'}">${dark?SUN:MOON}</button>
+</div>`;}
+
+function Home(){return`<div class="ani" style="padding:56px 24px 48px;text-align:center">
+<div style="font-size:9px;letter-spacing:.3em;color:${GOLD};font-weight:500;margin-bottom:14px">CEDRIC SPENCER</div>
+<div class="serif" style="font-size:30px;font-weight:500;letter-spacing:.04em;line-height:1.15;color:var(--c-text)">TRUTH <span style="color:${GOLD2};font-style:italic">&amp;</span> CONSEQUENCES</div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,${GOLD2},transparent);margin:20px auto;max-width:260px"></div>
+<p style="font-size:12px;color:var(--c-text4);line-height:1.85;max-width:380px;margin:0 auto;font-style:italic">"Buy the truth, and sell it not; also wisdom, and instruction, and understanding."</p>
+<p style="font-size:10px;color:var(--c-text6);margin-top:6px;letter-spacing:.08em">PROVERBS 23:23</p>
+<p style="font-size:12px;color:var(--c-text5);line-height:1.8;max-width:360px;margin:20px auto 0">A six-week curriculum equipping Kingdom citizens to recognize and overcome the psychological mechanisms of fact-denial.</p>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:36px;text-align:left">
+<button class="hc" id="b-lib" style="background:var(--c-card);border:0.5px solid var(--c-border);border-radius:8px;padding:20px;width:100%;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div style="font-size:9px;letter-spacing:.22em;color:${GOLD};margin-bottom:7px;font-weight:500">SIX-WEEK CURRICULUM</div>
+<div style="font-size:15px;font-weight:500;margin-bottom:5px;color:var(--c-text)">Explore the Curriculum</div>
+<div style="font-size:11px;color:var(--c-text3);line-height:1.6">Research, scripture, real-world examples, and counter-strategies for each week.</div>
+</button>
+<button class="hc" id="b-g0" style="background:var(--c-card);border:0.5px solid var(--c-border);border-radius:8px;padding:20px;width:100%;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04)">
+<div style="font-size:9px;letter-spacing:.22em;color:${GOLD};margin-bottom:7px;font-weight:500">AI THINKING PARTNER</div>
+<div style="font-size:15px;font-weight:500;margin-bottom:5px;color:var(--c-text)">Ask the Guide</div>
+<div style="font-size:11px;color:var(--c-text3);line-height:1.6">Bring a question, a challenge, or a real situation. Trained on the T&amp;C curriculum and the research behind it.</div>
+</button>
+<button class="hc" id="b-res" style="background:var(--c-card);border:0.5px solid var(--c-border);border-radius:8px;padding:20px;width:100%;transition:all .15s;box-shadow:0 1px 3px rgba(0,0,0,.04);text-align:left;display:block;cursor:pointer">
+<div style="font-size:9px;letter-spacing:.22em;color:${GOLD};margin-bottom:7px;font-weight:500">RESEARCH</div>
+<div style="font-size:15px;font-weight:500;margin-bottom:5px;color:var(--c-text)">Misconceptions vs. Documented Facts</div>
+<div style="font-size:11px;color:var(--c-text3);line-height:1.6">Interactive analysis of 31 documented fact-denial patterns across social issues, with psychological mechanism mapping.</div>
+</button>
+</div>
+<p style="margin-top:48px;font-size:9px;color:var(--c-text7);letter-spacing:.18em">A SIX-WEEK LIFE GROUP</p>
+</div>`;}
+
+function Lib(){
+const cards=weeks.map(w=>`
+<button class="wc" data-id="${w.id}" style="background:var(--c-card);border:0.5px solid var(--c-border);border-radius:8px;padding:17px 16px;text-align:left;width:100%;transition:all .15s;position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.03)">
+<div style="display:flex;align-items:center;gap:9px;margin-bottom:9px">
+<span style="font-size:9px;letter-spacing:.16em;color:${GOLD};font-weight:500">${w.wk}</span>
+<div style="height:1px;background:var(--c-border-light);flex:1"></div>
+</div>
+<div style="font-size:10px;letter-spacing:.18em;color:${GOLD2};margin-bottom:6px;font-weight:500">${w.tag}</div>
+<div class="serif" style="font-size:14px;margin-bottom:5px;color:var(--c-text)">${w.name}</div>
+<div style="font-size:11px;color:var(--c-text3);line-height:1.55;font-style:italic">${w.sub}</div>
+<div style="position:absolute;bottom:0;left:0;width:40%;height:2px;background:linear-gradient(90deg,${GOLD2},transparent)"></div>
+</button>`).join('');
+return`<div class="ani" style="padding:24px;min-height:100vh;background:var(--c-bg)">
+<div class="serif" style="font-size:22px;margin-bottom:5px;color:var(--c-text)">Six-Week Curriculum</div>
+<p style="font-size:11px;color:var(--c-text3);margin-bottom:22px;line-height:1.6">Select a week to explore the content, scripture, and counter-strategies.</p>
+<div style="display:flex;flex-direction:column;gap:8px">${cards}</div>
+</div>`;}
+
+function sec(lbl,txt,bc){
+const bdr=bc?`padding:13px 15px;border-left:2px solid ${bc};background:${bc}18;border-radius:0 4px 4px 0`:'';
+return`<div style="margin-bottom:24px">
+<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:9px">${lbl}</div>
+<div style="font-size:13px;color:var(--c-text2);line-height:1.88;${bdr}">${txt}</div></div>`;}
+
+function buildAudio(file,label){
+if(!file)return'';
+const heading=label||'NOTEBOOKLM PODCAST — LISTEN TO THIS SESSION';
+return`<div style="margin-bottom:24px">
+<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:10px">${heading}</div>
+<div style="background:var(--c-surface);border:0.5px solid var(--c-border-soft);border-radius:8px;padding:14px 16px">
+<audio controls style="width:100%;accent-color:${GOLD}"
+  onerror="this.parentElement.innerHTML='<div style=\'font-size:11px;color:var(--c-text3)\'>Audio not yet uploaded — add <code style=\'font-size:10px;background:var(--c-hover);padding:1px 5px;border-radius:3px\'>/audio/${file}</code> to your GitHub repo.</div>'">
+  <source src="/audio/${file}" type="audio/mpeg"/>
+  Your browser does not support audio playback.
+</audio>
+<div style="font-size:10px;color:var(--c-text8);margin-top:8px">AI-generated podcast discussion via NotebookLM</div>
+</div>
+</div>`;}
+
+function buildPrologue(prologue){
+if(!prologue)return'';
+return`<div style="margin-bottom:28px;padding:18px 18px 20px;background:var(--c-card);border:0.5px solid var(--c-border);border-radius:8px;border-left:3px solid ${GOLD2}">
+<div style="font-size:9px;letter-spacing:.22em;color:${GOLD};font-weight:500;margin-bottom:8px">BEFORE WE BEGIN</div>
+<div class="serif" style="font-size:15px;color:var(--c-text);margin-bottom:8px">${prologue.title}</div>
+<div style="font-size:12px;color:var(--c-text4);line-height:1.78;margin-bottom:16px">${prologue.desc}</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="background:var(--c-surface);border:0.5px solid var(--c-border-soft);border-radius:6px;padding:12px 14px">
+<div style="font-size:9px;letter-spacing:.18em;color:${GOLD};font-weight:500;margin-bottom:8px">AUDIO</div>
+<audio controls style="width:100%;accent-color:${GOLD}"
+  onerror="this.parentElement.innerHTML='<div style=\'font-size:11px;color:var(--c-text3)\'>Audio not yet uploaded.</div>'">
+  <source src="/audio/${prologue.audio}" type="audio/mpeg"/>
+  Your browser does not support audio playback.
+</audio>
+</div>
+<a href="/downloads/${prologue.pdf}" download
+  style="display:flex;align-items:center;gap:11px;background:var(--c-surface);border:0.5px solid var(--c-border-soft);border-radius:6px;padding:11px 14px;text-decoration:none;transition:all .15s"
+  onmouseover="this.style.background='var(--c-hover)';this.style.borderColor='${GOLD2}'"
+  onmouseout="this.style.background='var(--c-surface)';this.style.borderColor='var(--c-border-soft)'">
+<div style="width:30px;height:30px;background:${GOLD};border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+</div>
+<div>
+<div style="font-size:12px;font-weight:500;color:var(--c-text);margin-bottom:1px">Download Slides</div>
+<div style="font-size:10px;color:var(--c-text3)">PDF · Defining Truth — baseline presentation</div>
+</div>
+</a>
+</div>
+</div>`;}
+
+function buildPDF(file){
+if(!file)return'';
+return`<div style="margin-bottom:24px">
+<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:10px">PRESENTATION SLIDES</div>
+<a href="/downloads/${file}" download
+  style="display:flex;align-items:center;gap:12px;background:var(--c-surface);border:0.5px solid var(--c-border-soft);border-radius:8px;padding:13px 16px;text-decoration:none;transition:all .15s"
+  onmouseover="this.style.background='var(--c-hover)';this.style.borderColor='${GOLD2}'"
+  onmouseout="this.style.background='var(--c-surface)';this.style.borderColor='var(--c-border-soft)'">
+<div style="width:36px;height:36px;background:${GOLD};border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+</div>
+<div>
+<div style="font-size:13px;font-weight:500;color:var(--c-text);margin-bottom:2px">Download Slides</div>
+<div style="font-size:11px;color:var(--c-text3)">PDF · This week's full presentation</div>
+</div>
+</a>
+</div>`;}
+
+function buildVisual(visual){
+if(!visual)return'';
+return`<div style="margin-bottom:24px">
+<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:10px">VISUAL AID — ${visual.title.toUpperCase()}</div>
+<img src="/images/${visual.file}" alt="${visual.title}" class="va-img"
+  onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+<div style="display:none;background:var(--c-surface);border:0.5px solid var(--c-border-soft);border-radius:6px;padding:12px 15px;font-size:11px;color:var(--c-text3)">
+  Image not yet uploaded — add <code style="font-size:10px;background:var(--c-hover);padding:1px 5px;border-radius:3px">/images/${visual.file}</code> to your GitHub repo.
+</div>
+</div>`;}
+
+function buildVideos(videos){
+if(!videos||!videos.length)return'';
+const base='https://www.youtube-nocookie.com/embed/';
+const regular=videos.filter(v=>!v.shorts);
+const shorts=videos.filter(v=>v.shorts);
+const regHtml=regular.map(v=>`
+<div style="margin-bottom:14px">
+  <div class="yt-16x9"><iframe src="${base}${v.id}?rel=0&modestbranding=1" title="${v.title}" allowfullscreen loading="lazy"></iframe></div>
+  <div style="font-size:11px;color:var(--c-text3);margin-top:6px">${v.title}</div>
+</div>`).join('');
+let shortsHtml='';
+if(shorts.length){
+shortsHtml=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+${shorts.map(v=>`<div>
+  <div class="yt-9x16"><iframe src="${base}${v.id}?rel=0&modestbranding=1" title="${v.title}" allowfullscreen loading="lazy"></iframe></div>
+  <div style="font-size:10px;color:var(--c-text3);margin-top:6px;line-height:1.4">${v.title}</div>
+</div>`).join('')}
+</div>`;}
+return`<div style="margin-bottom:24px">
+<div style="font-size:9px;letter-spacing:.24em;color:${GOLD};font-weight:500;margin-bottom:12px">IN PRACTICE — VIDEO CASE STUDIES</div>
+${regHtml}${shortsHtml}
+</div>`;}
+
+function Det(w){
+if(!w)return Lib();
+return`<div class="ani" style="padding:24px;min-height:100vh;background:var(--c-bg)">
+<div style="margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--c-border-light)">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:9px">
+<span style="font-size:9px;letter-spacing:.14em;color:${GOLD};font-weight:500">${w.wk}</span>
+<span style="color:var(--c-text9)">·</span>
+<span style="font-size:9px;letter-spacing:.16em;color:${GOLD2};font-weight:500">${w.tag}</span>
+</div>
+<h1 class="serif" style="font-size:24px;font-weight:500;margin-bottom:6px;line-height:1.3;color:var(--c-text)">${w.name}</h1>
+<p style="font-size:12px;color:${GOLD2};font-style:italic">${w.sub}</p>
+</div>
+${buildPrologue(w.prologue)}${sec('WHAT IT IS',w.what)}
+${sec('HOW IT OPERATES',w.how)}
+${sec('IN SCRIPTURE & PRACTICE',w.example,GOLD2)}
+${buildVideos(w.videos)}${buildAudio(w.audio)}${buildVisual(w.visual)}${buildPDF(w.pdf)}
+${sec('SCRIPTURE FOUNDATION',w.scripture,'#4a6b9a')}
+${sec('SELF-EXAMINATION',w.check,'#9a4a4a')}
+${sec('COUNTER-STRATEGY',w.counter)}
+<button id="b-og" style="display:block;width:100%;background:${GOLD};border-radius:6px;padding:14px;font-size:12px;font-weight:500;color:#fff;letter-spacing:.1em;margin-top:6px;border:none;cursor:pointer;text-transform:uppercase">Go Deeper with the AI Guide →</button>
+</div>`;}
+
+function Guide(){
+const cm=S.ctx;
+const mh=S.msgs.map(m=>{
+if(m.role==='user')return`<div style="display:flex;justify-content:flex-end;margin-bottom:14px"><div style="background:var(--c-msg-bg);border:0.5px solid var(--c-border-in);border-radius:12px 12px 2px 12px;padding:10px 14px;max-width:78%;font-size:13px;line-height:1.75;color:var(--c-msg-text)">${eh(m.content)}</div></div>`;
+return`<div style="margin-bottom:16px;max-width:86%"><div style="font-size:9px;letter-spacing:.22em;color:${GOLD};font-weight:500;margin-bottom:6px">GUIDE</div><div style="font-size:13px;color:var(--c-text2);line-height:1.88;white-space:pre-wrap">${eh(m.content)}</div></div>`;}).join('');
+const ld=S.loading?`<div style="margin-bottom:14px"><div style="font-size:9px;letter-spacing:.22em;color:${GOLD};font-weight:500;margin-bottom:6px">GUIDE</div><div style="display:flex;gap:5px;padding-top:4px">${['0s','.2s','.4s'].map(d=>`<span style="width:6px;height:6px;border-radius:50%;background:${GOLD};animation:tp 1.2s ${d} infinite;display:inline-block"></span>`).join('')}</div></div>`:'';
+return`<div style="display:flex;flex-direction:column;height:100vh;max-height:100vh;background:var(--c-bg)">
+<div style="padding:14px 24px;border-bottom:1px solid var(--c-border-light);background:var(--c-card);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+<button id="b-bg" style="font-size:12px;color:var(--c-text3);letter-spacing:.04em">← ${cm?eh(cm.name):'Curriculum'}</button>
+<div style="display:flex;align-items:center;gap:8px">
+<div style="width:7px;height:7px;border-radius:50%;background:#3a9e6b"></div>
+<span style="font-size:10px;font-weight:500;letter-spacing:.1em;color:var(--c-text3)">T&amp;C GUIDE</span>
+${cm?`<span style="font-size:9px;background:var(--c-tag);border:0.5px solid var(--c-border-soft);border-radius:3px;padding:2px 8px;color:${GOLD};letter-spacing:.06em">${eh(cm.tag)}</span>`:''}
+</div></div>
+<div id="cw" style="flex:1;padding:22px 24px;overflow-y:auto">${mh}${ld}</div>
+<div style="padding:12px 24px;border-top:1px solid var(--c-border-light);background:var(--c-card);display:flex;gap:8px;flex-shrink:0">
+<input id="ci" type="text" value="${ea(S.val)}" placeholder="Ask a question or bring a real situation..." style="flex:1;font-size:13px;padding:10px 14px;border-radius:6px;background:var(--c-in-bg);border:0.5px solid var(--c-border-in);color:var(--c-text);outline:none"/>
+<button id="b-snd" style="background:${S.loading?'#c8b88a':GOLD};border:none;border-radius:6px;padding:10px 18px;color:#fff;font-size:14px;font-weight:500;cursor:${S.loading?'not-allowed':'pointer'};transition:background .15s">→</button>
+</div></div>`;}
+
+function eh(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function ea(s){return String(s).replace(/"/g,'&quot;');}
+
+function openGuide(w){
+const intro=w
+?`Welcome to the discussion on ${w.name}.\n\n${w.sub}\n\nI can go deeper on any dimension of this week's content — the psychology behind it, the scripture, the real-world implications, or how to apply the counter-strategy in your own life. Where do you want to start?`
+:`Welcome to the Truth & Consequences Guide.\n\nThis curriculum was developed by Cedric Spencer to equip Kingdom citizens to recognize and overcome the psychological mechanisms that distort how we process truth — motivated reasoning, cognitive dissonance, identity-protective cognition, confirmation bias, and more.\n\nBring a question, a situation you're trying to analyze, or anything from the curriculum you want to explore further. What's on your mind?`;
+set({view:'guide',ctx:w,msgs:[{role:'assistant',content:intro}],val:''});}
+
+// Close Research dropdown when clicking outside — set up once only
+document.addEventListener('click',function(e){
+  const rd=document.getElementById('nav-rd');
+  if(rd&&!rd.contains(e.target))rd.classList.remove('open');
+});
+
+function attachEvents(){
+const on=(id,fn)=>{const el=document.getElementById(id);if(el)el.addEventListener('click',fn);};
+on('n-home',()=>set({view:'home',ctx:null}));
+on('n-lib',()=>set({view:'lib'}));
+on('n-guide',()=>openGuide(null));
+on('n-theme',toggleTheme);
+on('n-res',()=>{
+  const rd=document.getElementById('nav-rd');
+  if(rd)rd.classList.toggle('open');
+});
+on('b-res',()=>{window.location.href='/research/';});
+on('b-lib',()=>set({view:'lib'}));
+on('b-g0',()=>openGuide(null));
+on('b-bh',()=>set({view:'home'}));
+on('b-bl',()=>set({view:'lib'}));
+on('b-og',()=>openGuide(S.sel));
+on('b-bg',()=>set({view:S.ctx?'det':'lib',sel:S.ctx}));
+on('b-snd',sendMessage);
+document.querySelectorAll('.wc').forEach(c=>{
+c.addEventListener('click',()=>{
+const w=weeks.find(x=>x.id===c.dataset.id);
+set({view:'det',sel:w});});});
+const ci=document.getElementById('ci');
+if(ci){
+ci.addEventListener('input',e=>{S.val=e.target.value;});
+ci.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&S.val.trim()){e.preventDefault();sendMessage();}});
+setTimeout(()=>ci.focus(),50);}}
+
+async function sendMessage(){
+const t=S.val.trim();
+if(!t||S.loading)return;
+const nm=[...S.msgs,{role:'user',content:t}];
+set({msgs:nm,loading:true,val:''});
+const cm=S.ctx;
+const sys=cm
+?`${SYS}\n\nContext: The user is currently exploring Week ${weeks.findIndex(w=>w.id===cm.id)+1}: ${cm.name} — ${cm.tag}. "${cm.sub}" Weave this week's content into your response when naturally relevant, but follow the user's lead.`
+:SYS;
+try{
+const r=await fetch('/api/chat',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:nm})});
+const d=await r.json();
+const rep=d.content?.[0]?.text||'Unable to respond — please try again.';
+set({msgs:[...nm,{role:'assistant',content:rep}],loading:false});
+}catch(e){
+set({msgs:[...nm,{role:'assistant',content:'Connection error. Please try again.'}],loading:false});}}
+
+render();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
